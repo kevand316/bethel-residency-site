@@ -68,9 +68,21 @@ function StatCounter({ end, suffix, label, sublabel, isVisible }: {
   );
 }
 
+const homes = [
+  { name: "Manfield", location: "Near UC Riverside" },
+  { name: "Lone Pine", location: "Moreno Valley" },
+  { name: "Grand", location: "Central Riverside" },
+  { name: "Walking Beam", location: "High Grove" },
+  { name: "Bert Ranch", location: "Woodcrest" },
+  { name: "Libby 1", location: "Near UCR" },
+  { name: "Libby 2", location: "Near UCR" },
+  { name: "Arliss", location: "High Grove Area" },
+];
+
 export default function HomePage() {
   const statsAnim = useScrollAnimation(0.2);
   const servicesAnim = useScrollAnimation(0.1);
+  const locationsAnim = useScrollAnimation(0.1);
 
   return (
     <>
@@ -240,6 +252,45 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== OUR LOCATIONS ===== */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container" ref={locationsAnim.ref}>
+          <SectionHeader
+            label="Our Locations"
+            title="Eight Homes Across Riverside County"
+            description="Each home is fully furnished and staffed with 24/7 on-site management"
+          />
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {homes.map((home, i) => (
+              <div
+                key={home.name}
+                className={`flex items-center gap-4 rounded-xl border border-border/50 bg-white p-5 shadow-sm hover:shadow-md transition-all duration-500 ${
+                  locationsAnim.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                }`}
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15">
+                  <MapPin className="h-5 w-5 text-gold-dark" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-navy">{home.name}</h3>
+                  <p className="text-sm text-muted-foreground">{home.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Button asChild variant="outline" className="border-gold/30 text-navy hover:bg-gold/10">
+              <Link to="/our-homes" className="flex items-center gap-2">
+                View Our Homes <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
