@@ -1,11 +1,29 @@
 /*
  * Design: Warm Sanctuary — Organic Modernism
- * Footer: Deep navy background with gold accents, three-column layout
+ * Footer: Deep navy background with gold accents, three-column layout.
+ * Uses anchor scroll links for single-page layout.
  */
-import { Link } from "wouter";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
+
+const footerLinks = [
+  { to: "about", label: "About Us" },
+  { to: "homes", label: "Our Homes" },
+  { to: "services", label: "Services" },
+  { to: "partnerships", label: "Partnerships" },
+  { to: "faq", label: "FAQ" },
+  { to: "contact", label: "Contact" },
+];
+
+function scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = 72;
+    const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+}
 
 export default function Footer() {
   return (
@@ -17,10 +35,10 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-3">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-3 mb-5">
+            <button onClick={() => scrollTo("hero")} className="flex items-center gap-3 mb-5">
               <img src={LOGO_URL} alt="Bethel Residency" className="h-14 w-14 opacity-90" />
               <span className="font-serif text-xl text-cream">Bethel Residency</span>
-            </Link>
+            </button>
             <p className="text-cream/70 text-sm leading-relaxed max-w-xs">
               Permanent Supportive Housing with Love &amp; Dignity. Creating
               family-style homes where residents can thrive, regain stability,
@@ -32,21 +50,14 @@ export default function Footer() {
           <div>
             <h3 className="font-serif text-lg text-gold mb-5">Quick Links</h3>
             <div className="flex flex-col gap-3 text-sm">
-              {[
-                { to: "/about", label: "About Us" },
-                { to: "/our-homes", label: "Our Homes" },
-                { to: "/services", label: "Services" },
-                { to: "/partnerships", label: "Partnerships" },
-                { to: "/faq", label: "FAQ" },
-                { to: "/contact", label: "Contact" },
-              ].map((link) => (
-                <Link
+              {footerLinks.map((link) => (
+                <button
                   key={link.to}
-                  to={link.to}
-                  className="text-cream/60 hover:text-gold transition-colors duration-200"
+                  onClick={() => scrollTo(link.to)}
+                  className="text-cream/60 hover:text-gold transition-colors duration-200 text-left"
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
             </div>
           </div>

@@ -1,39 +1,60 @@
 /*
  * Design: Warm Sanctuary — Organic Modernism
- * Navigation: Sticky top bar with logo, warm gold accent on hover,
- * cream/white background with subtle backdrop blur. Mobile hamburger menu.
+ * Navigation: Sticky top bar with anchor-based smooth scroll navigation.
+ * Highlights active section based on scroll position.
  */
-import { Link, useLocation } from "wouter";
 import { Menu, X, Phone } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/our-homes", label: "Our Homes" },
-  { to: "/services", label: "Services" },
-  { to: "/partnerships", label: "Partnerships" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contact", label: "Contact" },
+  { to: "hero", label: "Home" },
+  { to: "about", label: "About" },
+  { to: "homes", label: "Our Homes" },
+  { to: "services", label: "Services" },
+  { to: "partnerships", label: "Partnerships" },
+  { to: "faq", label: "FAQ" },
+  { to: "contact", label: "Contact" },
 ];
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [location] = useLocation();
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      // Determine active section
+      const sections = navLinks.map((l) => l.to);
+      let current = "hero";
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  const scrollTo = useCallback((id: string) => {
     setIsOpen(false);
-    window.scrollTo(0, 0);
-  }, [location]);
+    const el = document.getElementById(id);
+    if (el) {
+      const navHeight = 72; // h-18 = 4.5rem = 72px
+      const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top: id === "hero" ? 0 : y, behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <nav
@@ -46,7 +67,7 @@ export default function Navigation() {
       <div className="container">
         <div className="flex h-18 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <button onClick={() => scrollTo("hero")} className="flex items-center gap-3 group">
             <img
               src={LOGO_URL}
               alt="Bethel Residency"
@@ -57,22 +78,22 @@ export default function Navigation() {
                 Bethel Residency
               </span>
             </div>
-          </Link>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <Link
+              <button
                 key={link.to}
-                to={link.to}
+                onClick={() => scrollTo(link.to)}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                  location === link.to
+                  activeSection === link.to
                     ? "text-gold-dark bg-gold/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
             <a
               href="tel:9512163326"
@@ -102,17 +123,17 @@ export default function Navigation() {
         >
           <div className="border-t border-border pt-4 flex flex-col gap-1">
             {navLinks.map((link) => (
-              <Link
+              <button
                 key={link.to}
-                to={link.to}
-                className={`px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                  location === link.to
+                onClick={() => scrollTo(link.to)}
+                className={`px-4 py-3 text-sm font-medium rounded-md transition-colors text-left ${
+                  activeSection === link.to
                     ? "text-gold-dark bg-gold/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
             <a
               href="tel:9512163326"
