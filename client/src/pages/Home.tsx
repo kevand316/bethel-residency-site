@@ -29,7 +29,6 @@ import {
   Users,
   MapPin,
   ArrowRight,
-  Quote,
   Zap,
   WashingMachine,
   Droplets,
@@ -283,21 +282,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════
           ABOUT
          ════════════════════════════════════════════════════════════ */}
-      <section id="about" className="py-16 md:py-20 bg-cream-dark">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center relative">
-            <Quote className="h-10 w-10 text-gold/40 mx-auto mb-6" />
-            <blockquote className="font-serif text-xl md:text-2xl lg:text-3xl text-navy leading-relaxed italic">
-              "To come alongside individuals who are struggling to find safe, secure
-              &amp; quality housing while experiencing a loving, supportive,
-              judgment-free environment leading to an abundant life"
-            </blockquote>
-            <div className="mt-6 h-0.5 w-16 bg-gold mx-auto" />
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 bg-background">
+      <section id="about" className="py-20 md:py-28 bg-background">
         <div className="container">
           <div
             ref={storyAnim.ref}
