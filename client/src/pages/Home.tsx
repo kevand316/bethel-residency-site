@@ -274,7 +274,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/30 pointer-events-none" />
         <div className="container relative text-center pt-18 pb-20">
           <div className="mb-8 animate-fade-up">
-            <img src={LOGO_URL} alt="Bethel Residency Logo" className="h-28 w-28 md:h-36 md:w-36 mx-auto object-contain" style={{ filter: "drop-shadow(0 0 40px rgba(0,0,0,0.6))" }} />
+            <img src={LOGO_URL} alt="Bethel Residency Logo" className="h-40 w-40 md:h-52 md:w-52 mx-auto object-contain" style={{ filter: "drop-shadow(0 0 40px rgba(0,0,0,0.6))" }} />
           </div>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-5 animate-fade-up" style={{ animationDelay: "0.15s" }}>
             Bethel Residency
