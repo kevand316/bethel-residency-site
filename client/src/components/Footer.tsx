@@ -4,6 +4,7 @@
  * Uses anchor scroll links for single-page layout.
  */
 import { Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "wouter";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
 
@@ -89,8 +90,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-cream/10 text-center text-sm text-cream/40">
+        <div className="mt-12 pt-8 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-cream/40">
           <p>&copy; {new Date().getFullYear()} Bethel Residency. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy-policy" className="hover:text-gold transition-colors duration-200">
+              Privacy Policy
+            </Link>
+            <Link href="/sms-terms" className="hover:text-gold transition-colors duration-200">
+              SMS Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

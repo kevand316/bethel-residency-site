@@ -5,6 +5,7 @@
  */
 import { Menu, X, Phone } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
+import { useLocation } from "wouter";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
 
@@ -22,6 +23,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [location, navigate] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,13 +50,18 @@ export default function Navigation() {
 
   const scrollTo = useCallback((id: string) => {
     setIsOpen(false);
+    if (location !== "/") {
+      navigate("/");
+      // After navigation, the Home page will render; we skip auto-scroll from here
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
       const navHeight = 72; // h-18 = 4.5rem = 72px
       const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
       window.scrollTo({ top: id === "hero" ? 0 : y, behavior: "smooth" });
     }
-  }, []);
+  }, [location, navigate]);
 
   return (
     <nav
