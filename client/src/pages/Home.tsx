@@ -599,9 +599,9 @@ export default function HomePage() {
               <div>
                 <h3 className="font-serif text-2xl text-cream mb-4">Our Coverage Area</h3>
                 <p className="text-cream/70 mb-6">We serve the following counties in Southern California:</p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="flex flex-wrap justify-center gap-3">
                   {counties.map((county) => (
-                    <div key={county} className="flex items-center justify-center rounded-lg bg-cream/5 border border-cream/10 p-3 text-center text-sm font-medium text-cream">
+                    <div key={county} className="flex items-center justify-center rounded-lg bg-cream/5 border border-cream/10 p-3 text-center text-sm font-medium text-cream w-[calc(33.333%-0.5rem)]">
                       {county}
                     </div>
                   ))}
