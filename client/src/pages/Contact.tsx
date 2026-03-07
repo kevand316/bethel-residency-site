@@ -18,7 +18,10 @@ import {
 import { Phone, Mail, MapPin, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase";
+
+const SUPABASE_URL = "https://dorqtterkztyqfnxwxoo.supabase.co";
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvcnF0dGVya3p0eXFmbnh3eG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4Mzk0OTQsImV4cCI6MjA4ODQxNTQ5NH0.YrEkxK-FMDoMe5HQukheX3W4PG9tqS-zEliF1TSs1OQ";
 
 export default function Contact() {
   const formAnim = useScrollAnimation();
@@ -35,15 +38,23 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { error } = await supabase.from("contacts").insert({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone || null,
-      type: formData.type,
-      message: formData.message,
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        type: formData.type,
+        message: formData.message,
+      }),
     });
 
-    if (error) {
+    if (!res.ok) {
       toast.error("Something went wrong", {
         description: "Please try emailing us directly at info@bethelresidency.com",
       });

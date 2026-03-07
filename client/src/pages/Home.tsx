@@ -230,9 +230,30 @@ export default function HomePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success("Message sent!", { description: "We'll get back to you as soon as possible." });
-    setFormData({ name: "", email: "", phone: "", type: "general", message: "" });
+
+    const res = await fetch("https://dorqtterkztyqfnxwxoo.supabase.co/rest/v1/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvcnF0dGVya3p0eXFmbnh3eG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4Mzk0OTQsImV4cCI6MjA4ODQxNTQ5NH0.YrEkxK-FMDoMe5HQukheX3W4PG9tqS-zEliF1TSs1OQ",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvcnF0dGVya3p0eXFmbnh3eG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4Mzk0OTQsImV4cCI6MjA4ODQxNTQ5NH0.YrEkxK-FMDoMe5HQukheX3W4PG9tqS-zEliF1TSs1OQ",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        type: formData.type,
+        message: formData.message,
+      }),
+    });
+
+    if (res.ok) {
+      toast.success("Message sent!", { description: "We'll get back to you as soon as possible." });
+      setFormData({ name: "", email: "", phone: "", type: "general", message: "" });
+    } else {
+      toast.error("Something went wrong", { description: "Please email us at info@bethelresidency.com" });
+    }
+
     setIsSubmitting(false);
   };
 
