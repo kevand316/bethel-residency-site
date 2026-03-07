@@ -124,7 +124,7 @@ const supportiveServices = [
   { icon: DollarSign, title: "Money Management", description: "Budgeting and financial planning" },
 ];
 
-const counties = ["San Diego", "Imperial", "Riverside", "San Bernardino", "Orange", "Los Angeles", "Ventura", "Santa Barbara", "San Luis Obispo"];
+const counties = ["Riverside County", "San Bernardino County", "Orange County", "San Diego County", "Los Angeles County"];
 
 const partnershipServices = [
   {
@@ -568,7 +568,7 @@ export default function HomePage() {
             <SectionHeader label="Regional Coverage" title="Housing Navigation" description="Connecting individuals with housing opportunities across Southern California" light />
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
               {[
-                { icon: Map, title: "Region-Wide Service", desc: "Covering 9 counties from San Diego to San Luis Obispo" },
+                { icon: Map, title: "Region-Wide Service", desc: "Serving 5 counties across Southern California" },
                 { icon: Search, title: "Active Research", desc: "Continuously researching housing opportunities and resources" },
                 { icon: Network, title: "Network Building", desc: "Strong partnerships with housing providers and agencies" },
                 { icon: HomeIcon, title: "Successful Placements", desc: "Helping individuals find housing throughout Southern CA" },
