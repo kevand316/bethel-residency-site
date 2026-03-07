@@ -18,6 +18,7 @@ import {
 import { Phone, Mail, MapPin, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
 
 export default function Contact() {
   const formAnim = useScrollAnimation();
@@ -34,14 +35,25 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission (static site — no backend)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast.success("Message sent!", {
-      description: "We'll get back to you as soon as possible.",
+    const { error } = await supabase.from("contacts").insert({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || null,
+      type: formData.type,
+      message: formData.message,
     });
 
-    setFormData({ name: "", email: "", phone: "", type: "general", message: "" });
+    if (error) {
+      toast.error("Something went wrong", {
+        description: "Please try emailing us directly at info@bethelresidency.com",
+      });
+    } else {
+      toast.success("Message sent!", {
+        description: "We'll get back to you as soon as possible.",
+      });
+      setFormData({ name: "", email: "", phone: "", type: "general", message: "" });
+    }
+
     setIsSubmitting(false);
   };
 
