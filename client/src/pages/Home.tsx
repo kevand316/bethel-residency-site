@@ -60,7 +60,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 /* ─── CDN URLs ─── */
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/hero-bg-KxHHhPSTXuzPwcWwViPvcZ.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/hero-people-home-bG9SLz2gJNPX7LoZuFRjUD.webp";
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
 const FURNISHED_ROOM = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/furnished-room_378b1331.jpg";
 const KITCHEN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/kitchen_6e4103b2.jpg";
