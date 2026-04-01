@@ -1,13 +1,13 @@
 /*
- * Design: Warm Sanctuary — Organic Modernism
+ * Design: Coastal Calm — Harbor Haven Housing
  * Navigation: Sticky top bar with anchor-based smooth scroll navigation.
- * Highlights active section based on scroll position.
+ * Teal/slate palette with Libre Baskerville headings.
  */
 import { Menu, X, Phone } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
 
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
+const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-logo_2dc1057c.png";
 
 const navLinks = [
   { to: "hero", label: "Home" },
@@ -29,7 +29,6 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Determine active section
       const sections = navLinks.map((l) => l.to);
       let current = "hero";
       for (const id of sections) {
@@ -52,12 +51,11 @@ export default function Navigation() {
     setIsOpen(false);
     if (location !== "/") {
       navigate("/");
-      // After navigation, the Home page will render; we skip auto-scroll from here
       return;
     }
     const el = document.getElementById(id);
     if (el) {
-      const navHeight = 72; // h-18 = 4.5rem = 72px
+      const navHeight = 72;
       const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
       window.scrollTo({ top: id === "hero" ? 0 : y, behavior: "smooth" });
     }
@@ -77,12 +75,12 @@ export default function Navigation() {
           <button onClick={() => scrollTo("hero")} className="flex items-center gap-3 group">
             <img
               src={LOGO_URL}
-              alt="Bethel Residency"
+              alt="Harbor Haven Housing"
               className="h-11 w-11 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
             />
             <div className="hidden sm:block">
-              <span className="font-serif text-xl text-navy tracking-tight">
-                Bethel Residency
+              <span className="font-serif text-xl text-slate tracking-tight">
+                Harbor Haven
               </span>
             </div>
           </button>
@@ -95,7 +93,7 @@ export default function Navigation() {
                 onClick={() => scrollTo(link.to)}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
                   activeSection === link.to
-                    ? "text-gold-dark bg-gold/10"
+                    ? "text-teal-dark bg-teal/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 }`}
               >
@@ -103,11 +101,11 @@ export default function Navigation() {
               </button>
             ))}
             <a
-              href="tel:9512163326"
-              className="ml-3 flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:bg-navy-light hover:shadow-md"
+              href="tel:9095554200"
+              className="ml-3 flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:bg-slate-light hover:shadow-md"
             >
               <Phone className="h-4 w-4" />
-              <span className="hidden xl:inline">(951) 216-3326</span>
+              <span className="hidden xl:inline">(909) 555-4200</span>
               <span className="xl:hidden">Call</span>
             </a>
           </div>
@@ -135,7 +133,7 @@ export default function Navigation() {
                 onClick={() => scrollTo(link.to)}
                 className={`px-4 py-3 text-sm font-medium rounded-md transition-colors text-left ${
                   activeSection === link.to
-                    ? "text-gold-dark bg-gold/10"
+                    ? "text-teal-dark bg-teal/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 }`}
               >
@@ -143,11 +141,11 @@ export default function Navigation() {
               </button>
             ))}
             <a
-              href="tel:9512163326"
+              href="tel:9095554200"
               className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground"
             >
               <Phone className="h-4 w-4" />
-              (951) 216-3326
+              (909) 555-4200
             </a>
           </div>
         </div>
