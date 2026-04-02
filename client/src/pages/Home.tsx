@@ -1,8 +1,7 @@
 /*
- * Design: Coastal Calm — Harbor Haven Housing
+ * Design: Warm Sanctuary — Organic Modernism
  * Single-page layout: All sections consolidated into one scrollable page.
  * Sections: Hero, About, Our Homes, Services, Partnerships, FAQ, Contact
- * Teal/slate/mist palette with Libre Baskerville + Source Sans 3
  */
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +28,7 @@ import {
   Clock,
   Users,
   MapPin,
+  ArrowRight,
   Zap,
   WashingMachine,
   Droplets,
@@ -60,17 +60,16 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 /* ─── CDN URLs ─── */
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-hero_dcd022cb.jpg";
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-logo_2dc1057c.png";
-const COMMUNITY = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-community_99e40623.jpg";
-const SUPPORT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-support_8dfdf473.jpg";
-const PARTNER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/harbor-partnership_5da20e6d.jpg";
-/* Reuse Bethel property photos for furnished room/kitchen/laundry/care (same industry) */
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/hero-bg-KxHHhPSTXuzPwcWwViPvcZ.webp";
+const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/bethel-logo_15c5aaa7.png";
 const FURNISHED_ROOM = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/furnished-room_378b1331.jpg";
 const KITCHEN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/kitchen_6e4103b2.jpg";
 const LAUNDRY = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/laundry_b09fdc56.jpg";
 const CARE_SUPPORT = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/care-support_7ffc2093.jpg";
+const COMMUNITY = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/community-living-fTDTwhb3J3Tz6w2QqRuAsV.webp";
+const SUPPORT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/support-services-bhf9U7XMEKBSWhv5tnaSYG.webp";
 const NAV_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/housing-navigation-d5fapejkRFDD6qj3cyY9oL.webp";
+const PARTNER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663030806075/5aewKRAhbqC7m6eknSmK7M/partnership-handshake-bizAar6SM8Ftb28egKdcbT.webp";
 
 /* ─── Data ─── */
 const highlightServices = [
@@ -81,12 +80,14 @@ const highlightServices = [
 ];
 
 const homes = [
-  { name: "Baseline House", location: "San Bernardino", beds: 10 },
-  { name: "Mountain View", location: "Highland", beds: 8 },
-  { name: "Citrus Grove", location: "Redlands", beds: 9 },
-  { name: "Palm Court", location: "Fontana", beds: 9 },
-  { name: "Sierra House", location: "Rialto", beds: 8 },
-  { name: "Valley Oak", location: "Colton", beds: 8 },
+  { name: "Manfield", location: "Near UC Riverside" },
+  { name: "Lone Pine", location: "Moreno Valley" },
+  { name: "Grand", location: "Central Riverside" },
+  { name: "Walking Beam", location: "High Grove" },
+  { name: "Bert Ranch", location: "Woodcrest" },
+  { name: "Libby 1", location: "Near UCR" },
+  { name: "Libby 2", location: "Near UCR" },
+  { name: "Arliss", location: "High Grove Area" },
 ];
 
 const amenities = [
@@ -117,13 +118,13 @@ const dailyCareServices = [
 
 const supportiveServices = [
   { icon: HomeIcon, title: "Long-Term Housing Linkages", description: "Connecting to permanent housing" },
-  { icon: FileText, title: "Section 8 Assistance", description: "Application help for San Bernardino County" },
+  { icon: FileText, title: "Section 8 Assistance", description: "Application help for Riverside County" },
   { icon: Calculator, title: "Credit Repair & Financial Literacy", description: "Build your financial future" },
   { icon: Briefcase, title: "Job Readiness", description: "Resume, interview prep, job search" },
   { icon: DollarSign, title: "Money Management", description: "Budgeting and financial planning" },
 ];
 
-const counties = ["San Bernardino County", "Riverside County", "Los Angeles County", "Orange County", "Kern County", "Imperial County"];
+const counties = ["San Diego", "Imperial", "Riverside", "San Bernardino", "Orange", "Los Angeles", "Ventura", "Santa Barbara", "San Luis Obispo"];
 
 const partnershipServices = [
   {
@@ -138,8 +139,8 @@ const partnershipServices = [
   },
   {
     title: "Housing Navigation Services",
-    description: "Comprehensive support helping individuals find and secure permanent housing throughout the Inland Empire and Southern California.",
-    features: ["Coverage across 6 counties", "Active research and network building", "Application assistance and advocacy", "Move-in support and follow-up"],
+    description: "Comprehensive support helping individuals find and secure permanent housing throughout Southern California.",
+    features: ["Coverage from San Diego to San Luis Obispo", "Active research and network building", "Application assistance and advocacy", "Move-in support and follow-up"],
   },
 ];
 
@@ -147,7 +148,7 @@ const faqs = [
   {
     category: "Eligibility",
     questions: [
-      { q: "Who is eligible for Harbor Haven housing?", a: "We serve individuals experiencing homelessness or housing instability, including veterans, seniors, those with mental health challenges, individuals re-entering from incarceration, and those experiencing chronic homelessness. Specific eligibility varies by program." },
+      { q: "Who is eligible for Bethel Residency housing?", a: "We serve individuals experiencing homelessness or housing instability, including veterans, seniors, those with mental health challenges, individuals re-entering from incarceration, and those experiencing chronic homelessness. Specific eligibility varies by program." },
       { q: "Do you serve veterans?", a: "Yes, we welcome veterans and can help connect you with VA-specific benefits and services." },
       { q: "Is there an age requirement?", a: "We serve adults 18 and older. We have experience working with seniors and can accommodate age-related needs." },
     ],
@@ -163,7 +164,7 @@ const faqs = [
   {
     category: "Application & Move-In",
     questions: [
-      { q: "How do I apply?", a: "Contact us at (909) 555-4200 or info@harborhavenhousing.org to begin the application process. We can also accept referrals from social service agencies, hospitals, and county partners." },
+      { q: "How do I apply?", a: "Contact us at (951) 216-3326 or info@bethelresidency.com to begin the application process. We can also accept referrals from social service agencies, hospitals, and county partners." },
       { q: "How long does the application process take?", a: "Timeline varies based on program availability and individual circumstances. We work to move quickly once eligibility is confirmed." },
       { q: "What do I need to bring when I move in?", a: "Homes are fully furnished and equipped. You only need to bring personal clothing and items. We provide bedding, toiletries, and kitchen supplies." },
     ],
@@ -172,7 +173,8 @@ const faqs = [
     category: "Funding & Costs",
     questions: [
       { q: "How is this funded?", a: "Our programs are funded through a variety of sources, including state and county funding, CalAIM, SSDI/SSI contributions when applicable, private pay, and partnerships with local agencies. We work with each resident to determine their contribution based on their individual circumstances and income." },
-      { q: "Do I need to pay rent?", a: "Cost varies by program and individual circumstances. Some programs are funded through county partnerships, while others may involve a contribution based on your income. We work with each resident individually." },
+      { q: "Do I need to pay rent?", a: "Cost varies by program and individual circumstances. Some programs are funded through county partnerships or federal benefits, while private pay is also an option. We work with each resident to determine their contribution based on income." },
+      { q: "Can I use my SSI/SSDI benefits?", a: "Yes, for some programs, SSI/SSDI benefits can be used to contribute toward housing costs. We help residents apply for and manage their benefits." },
     ],
   },
   {
@@ -191,9 +193,9 @@ function StatCounter({ end, suffix, label, sublabel, isVisible }: {
   const count = useCountUp(end, 2000, isVisible);
   return (
     <div className="text-center">
-      <div className="font-serif text-5xl md:text-6xl text-teal mb-2">{count}{suffix}</div>
-      <p className="text-lg font-semibold text-mist">{label}</p>
-      <p className="text-sm text-mist/60">{sublabel}</p>
+      <div className="font-serif text-5xl md:text-6xl text-gold mb-2">{count}{suffix}</div>
+      <p className="text-lg font-semibold text-cream">{label}</p>
+      <p className="text-sm text-cream/60">{sublabel}</p>
     </div>
   );
 }
@@ -243,30 +245,30 @@ export default function HomePage() {
         id="hero"
         className="relative flex min-h-[92vh] items-center justify-center overflow-hidden -mt-18"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(30,41,59,0.65) 0%, rgba(30,41,59,0.45) 50%, rgba(30,41,59,0.7) 100%), url(${HERO_BG})`,
+          backgroundImage: `linear-gradient(135deg, rgba(26,26,46,0.65) 0%, rgba(26,26,46,0.45) 50%, rgba(26,26,46,0.7) 100%), url(${HERO_BG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-slate/60 via-transparent to-slate/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-navy/30 pointer-events-none" />
         <div className="container relative text-center pt-18 pb-20">
           <div className="mb-8 animate-fade-up">
-            <img src={LOGO_URL} alt="Harbor Haven Housing Logo" className="h-40 w-40 md:h-52 md:w-52 mx-auto object-contain" style={{ filter: "drop-shadow(0 0 40px rgba(0,0,0,0.6))" }} />
+            <img src={LOGO_URL} alt="Bethel Residency Logo" className="h-28 w-28 md:h-36 md:w-36 mx-auto object-contain" style={{ filter: "drop-shadow(0 0 40px rgba(0,0,0,0.6))" }} />
           </div>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-5 animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            Harbor Haven Housing
+            Bethel Residency
           </h1>
-          <p className="text-xl md:text-2xl text-teal-light font-medium mb-6 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            Safe Harbor. Lasting Home.
+          <p className="text-xl md:text-2xl text-gold-light font-medium mb-6 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+            Permanent Supportive Housing with Love &amp; Dignity
           </p>
           <p className="max-w-2xl mx-auto text-base md:text-lg text-white/80 mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: "0.45s" }}>
-            We provide a safe harbor for individuals navigating the path from
-            homelessness to permanent housing. Our network of homes across
-            San Bernardino County offers comprehensive supportive services,
-            daily care, and a community built on dignity and respect.
+            We are dedicated to providing safe, supportive, and affordable housing
+            solutions for individuals in need of all-inclusive communal living. Our
+            mission is to create family-style homes where residents can thrive,
+            regain stability, and build a brighter future.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-            <Button onClick={() => scrollToSection("contact")} size="lg" className="px-8 py-6 text-lg bg-teal hover:bg-teal-dark text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all">
+            <Button onClick={() => scrollToSection("contact")} size="lg" className="px-8 py-6 text-lg bg-gold hover:bg-gold-dark text-navy font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all">
               Refer a Resident
             </Button>
             <Button onClick={() => scrollToSection("partnerships")} variant="outline" size="lg" className="px-8 py-6 text-lg border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 rounded-lg">
@@ -289,15 +291,15 @@ export default function HomePage() {
             }`}
           >
             <div>
-              <span className="inline-block text-sm font-semibold tracking-widest uppercase mb-3 text-teal-dark">Our Story</span>
-              <h2 className="font-serif text-3xl md:text-4xl text-slate mb-6">Born from a Need We Saw Firsthand</h2>
+              <span className="inline-block text-sm font-semibold tracking-widest uppercase mb-3 text-gold-dark">Our Story</span>
+              <h2 className="font-serif text-3xl md:text-4xl text-navy mb-6">A Decade of Compassionate Service</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Harbor Haven Housing was founded in 2017 by a group of social
-                  workers and healthcare professionals who saw firsthand the gap
-                  between hospital discharge and stable housing. What started as a
-                  single 6-bed recuperative care home in San Bernardino has grown
-                  into a network of 6 homes with over 50 beds across the Inland Empire.
+                  Founded in 2013, Bethel Residency has been a beacon of hope for
+                  individuals experiencing housing instability in Riverside County.
+                  We provide comprehensive supportive housing services including
+                  Independent Living, Recuperative Care, Short-Term Post-Hospitalization
+                  Housing, and Housing Navigation to those in need.
                 </p>
                 <p>
                   Our approach combines safe, quality housing with access to social
@@ -308,22 +310,22 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <img src={SUPPORT_IMG} alt="Harbor Haven supportive services" className="w-full h-80 lg:h-[420px] object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate/20 to-transparent" />
+              <img src={SUPPORT_IMG} alt="Bethel Residency supportive services" className="w-full h-80 lg:h-[420px] object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Community */}
-      <section className="py-20 md:py-28 bg-mist-dark">
+      <section className="py-20 md:py-28 bg-cream-dark">
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div className="order-2 lg:order-1">
-              <span className="inline-block text-sm font-semibold tracking-widest uppercase mb-3 text-teal-dark">Our Community</span>
-              <h2 className="font-serif text-3xl md:text-4xl text-slate mb-6">More Than Housing — A Family</h2>
+              <span className="inline-block text-sm font-semibold tracking-widest uppercase mb-3 text-gold-dark">Our Community</span>
+              <h2 className="font-serif text-3xl md:text-4xl text-navy mb-6">More Than Housing — A Family</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                At Harbor Haven, we believe that housing is just the beginning.
+                At Bethel Residency, we believe that housing is just the beginning.
                 Our family-style homes create an environment where residents support
                 each other, share meals together, and build lasting connections.
                 Every individual is treated with love, dignity, and respect.
@@ -333,21 +335,21 @@ export default function HomePage() {
                   { icon: Clock, text: "24/7 On-Site Support" },
                   { icon: Users, text: "Community Living" },
                   { icon: Heart, text: "Judgment-Free Environment" },
-                  { icon: MapPin, text: "San Bernardino County, CA" },
+                  { icon: MapPin, text: "Riverside County, CA" },
                 ].map((item) => (
                   <div key={item.text} className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal/15">
-                      <item.icon className="h-4 w-4 text-teal-dark" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold/15">
+                      <item.icon className="h-4 w-4 text-gold-dark" />
                     </div>
-                    <span className="text-sm font-medium text-slate">{item.text}</span>
+                    <span className="text-sm font-medium text-navy">{item.text}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="order-1 lg:order-2">
               <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <img src={COMMUNITY} alt="Community living at Harbor Haven" className="w-full h-80 lg:h-[420px] object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate/20 to-transparent" />
+                <img src={COMMUNITY} alt="Community living at Bethel Residency" className="w-full h-80 lg:h-[420px] object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
               </div>
             </div>
           </div>
@@ -375,15 +377,15 @@ export default function HomePage() {
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img src={service.image} alt={service.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate/70 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/70 to-transparent" />
                       <div className="absolute bottom-4 left-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-teal shadow-md">
-                          <Icon className="h-5 w-5 text-white" />
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gold shadow-md">
+                          <Icon className="h-5 w-5 text-navy" />
                         </div>
                       </div>
                     </div>
                     <div className="p-5">
-                      <h3 className="font-serif text-lg mb-1.5 text-slate">{service.title}</h3>
+                      <h3 className="font-serif text-lg mb-1.5 text-navy">{service.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
                     </div>
                   </div>
@@ -407,15 +409,15 @@ export default function HomePage() {
                     style={{ transitionDelay: `${i * 80}ms` }}
                   >
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal/15">
-                        <Icon className="h-5 w-5 text-teal-dark" />
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15">
+                        <Icon className="h-5 w-5 text-gold-dark" />
                       </div>
-                      <h3 className="font-serif text-lg text-slate">{amenity.category}</h3>
+                      <h3 className="font-serif text-lg text-navy">{amenity.category}</h3>
                     </div>
                     <ul className="space-y-2">
                       {amenity.items.map((item) => (
                         <li key={item} className="flex items-start gap-2.5">
-                          <Check className="mt-0.5 h-4 w-4 text-teal-dark flex-shrink-0" />
+                          <Check className="mt-0.5 h-4 w-4 text-gold-dark flex-shrink-0" />
                           <span className="text-sm text-muted-foreground">{item}</span>
                         </li>
                       ))}
@@ -428,8 +430,8 @@ export default function HomePage() {
 
           {/* Locations */}
           <div className="mt-20" ref={locationsAnim.ref}>
-            <SectionHeader label="Our Locations" title="Six Homes Across the Inland Empire" description="Each home is fully furnished and staffed with 24/7 on-site management" />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <SectionHeader label="Our Locations" title="Eight Homes Across Riverside County" description="Each home is fully furnished and staffed with 24/7 on-site management" />
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {homes.map((home, i) => (
                 <div
                   key={home.name}
@@ -438,12 +440,12 @@ export default function HomePage() {
                   }`}
                   style={{ transitionDelay: `${i * 60}ms` }}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal/15">
-                    <MapPin className="h-5 w-5 text-teal-dark" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15">
+                    <MapPin className="h-5 w-5 text-gold-dark" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate">{home.name}</h3>
-                    <p className="text-sm text-muted-foreground">{home.location} &middot; {home.beds} beds</p>
+                    <h3 className="font-semibold text-navy">{home.name}</h3>
+                    <p className="text-sm text-muted-foreground">{home.location}</p>
                   </div>
                 </div>
               ))}
@@ -455,7 +457,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════
           SERVICES
          ════════════════════════════════════════════════════════════ */}
-      <section id="services" className="py-20 md:py-28 bg-slate">
+      <section id="services" className="py-20 md:py-28 bg-navy">
         <div className="container">
           {/* Housing Types */}
           <div ref={typesAnim.ref}>
@@ -466,16 +468,16 @@ export default function HomePage() {
                 return (
                   <div
                     key={type.title}
-                    className={`rounded-xl border border-mist/10 bg-mist/5 p-8 hover:bg-mist/8 transition-all duration-500 ${
+                    className={`rounded-xl border border-cream/10 bg-cream/5 p-8 hover:bg-cream/8 transition-all duration-500 ${
                       typesAnim.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                     }`}
                     style={{ transitionDelay: `${i * 100}ms` }}
                   >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-teal/20 mb-5">
-                      <Icon className="h-7 w-7 text-teal" />
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gold/20 mb-5">
+                      <Icon className="h-7 w-7 text-gold" />
                     </div>
-                    <h3 className="font-serif text-xl text-mist mb-3">{type.title}</h3>
-                    <p className="text-sm text-mist/70 leading-relaxed">{type.description}</p>
+                    <h3 className="font-serif text-xl text-cream mb-3">{type.title}</h3>
+                    <p className="text-sm text-cream/70 leading-relaxed">{type.description}</p>
                   </div>
                 );
               })}
@@ -487,8 +489,8 @@ export default function HomePage() {
             <SectionHeader label="What We Provide" title="Daily Care & Supportive Services" description="Comprehensive support to help you thrive every day" light />
             <div className="max-w-4xl mx-auto space-y-4">
               <Accordion type="single" collapsible>
-                <AccordionItem value="daily-care" className="border border-mist/10 rounded-xl bg-mist/5 px-6 data-[state=open]:bg-mist/8">
-                  <AccordionTrigger className="text-lg font-semibold text-mist hover:no-underline hover:text-teal py-5">
+                <AccordionItem value="daily-care" className="border border-cream/10 rounded-xl bg-cream/5 px-6 data-[state=open]:bg-cream/8">
+                  <AccordionTrigger className="text-lg font-semibold text-cream hover:no-underline hover:text-gold py-5">
                     Daily Care &amp; Operations
                   </AccordionTrigger>
                   <AccordionContent>
@@ -497,12 +499,12 @@ export default function HomePage() {
                         const Icon = service.icon;
                         return (
                           <div key={service.title} className="flex items-start gap-3">
-                            <div className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-teal/20">
-                              <Icon className="h-4 w-4 text-teal" />
+                            <div className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-gold/20">
+                              <Icon className="h-4 w-4 text-gold" />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-mist text-sm">{service.title}</h4>
-                              <p className="text-xs text-mist/60">{service.description}</p>
+                              <h4 className="font-semibold text-cream text-sm">{service.title}</h4>
+                              <p className="text-xs text-cream/60">{service.description}</p>
                             </div>
                           </div>
                         );
@@ -513,8 +515,8 @@ export default function HomePage() {
               </Accordion>
 
               <Accordion type="single" collapsible>
-                <AccordionItem value="supportive" className="border border-mist/10 rounded-xl bg-mist/5 px-6 data-[state=open]:bg-mist/8">
-                  <AccordionTrigger className="text-lg font-semibold text-mist hover:no-underline hover:text-teal py-5">
+                <AccordionItem value="supportive" className="border border-cream/10 rounded-xl bg-cream/5 px-6 data-[state=open]:bg-cream/8">
+                  <AccordionTrigger className="text-lg font-semibold text-cream hover:no-underline hover:text-gold py-5">
                     Supportive Services
                   </AccordionTrigger>
                   <AccordionContent>
@@ -523,12 +525,12 @@ export default function HomePage() {
                         const Icon = service.icon;
                         return (
                           <div key={service.title} className="flex items-start gap-3">
-                            <div className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-teal/20">
-                              <Icon className="h-4 w-4 text-teal" />
+                            <div className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-gold/20">
+                              <Icon className="h-4 w-4 text-gold" />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-mist text-sm">{service.title}</h4>
-                              <p className="text-xs text-mist/60">{service.description}</p>
+                              <h4 className="font-semibold text-cream text-sm">{service.title}</h4>
+                              <p className="text-xs text-cream/60">{service.description}</p>
                             </div>
                           </div>
                         );
@@ -542,10 +544,10 @@ export default function HomePage() {
 
           {/* Housing Navigation */}
           <div className="mt-20" ref={navAnim.ref}>
-            <SectionHeader label="Regional Coverage" title="Housing Navigation" description="Connecting individuals with housing opportunities across the Inland Empire" light />
+            <SectionHeader label="Regional Coverage" title="Housing Navigation" description="Connecting individuals with housing opportunities across Southern California" light />
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
               {[
-                { icon: Map, title: "Region-Wide Service", desc: "Covering 6 counties across Southern California" },
+                { icon: Map, title: "Region-Wide Service", desc: "Covering 9 counties from San Diego to San Luis Obispo" },
                 { icon: Search, title: "Active Research", desc: "Continuously researching housing opportunities and resources" },
                 { icon: Network, title: "Network Building", desc: "Strong partnerships with housing providers and agencies" },
                 { icon: HomeIcon, title: "Successful Placements", desc: "Helping individuals find housing throughout Southern CA" },
@@ -554,16 +556,16 @@ export default function HomePage() {
                 return (
                   <div
                     key={item.title}
-                    className={`text-center p-6 rounded-xl bg-mist/5 border border-mist/10 transition-all duration-500 ${
+                    className={`text-center p-6 rounded-xl bg-cream/5 border border-cream/10 transition-all duration-500 ${
                       navAnim.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                     }`}
                     style={{ transitionDelay: `${i * 80}ms` }}
                   >
-                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-teal/20">
-                      <Icon className="h-7 w-7 text-teal" />
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/20">
+                      <Icon className="h-7 w-7 text-gold" />
                     </div>
-                    <h3 className="font-serif text-base mb-2 text-mist">{item.title}</h3>
-                    <p className="text-sm text-mist/60">{item.desc}</p>
+                    <h3 className="font-serif text-base mb-2 text-cream">{item.title}</h3>
+                    <p className="text-sm text-cream/60">{item.desc}</p>
                   </div>
                 );
               })}
@@ -574,11 +576,11 @@ export default function HomePage() {
                 <img src={NAV_IMG} alt="Southern California coverage area" className="w-full h-72 lg:h-80 object-cover" />
               </div>
               <div>
-                <h3 className="font-serif text-2xl text-mist mb-4">Our Coverage Area</h3>
-                <p className="text-mist/70 mb-6">We serve the following counties in Southern California:</p>
-                <div className="grid grid-cols-2 gap-3">
+                <h3 className="font-serif text-2xl text-cream mb-4">Our Coverage Area</h3>
+                <p className="text-cream/70 mb-6">We serve the following counties in Southern California:</p>
+                <div className="grid grid-cols-3 gap-3">
                   {counties.map((county) => (
-                    <div key={county} className="flex items-center justify-center rounded-lg bg-mist/5 border border-mist/10 p-3 text-center text-sm font-medium text-mist">
+                    <div key={county} className="flex items-center justify-center rounded-lg bg-cream/5 border border-cream/10 p-3 text-center text-sm font-medium text-cream">
                       {county}
                     </div>
                   ))}
@@ -592,17 +594,17 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════
           IMPACT STATS
          ════════════════════════════════════════════════════════════ */}
-      <section className="py-20 md:py-24 bg-slate" ref={statsAnim.ref}>
+      <section className="py-20 md:py-24 bg-navy" ref={statsAnim.ref}>
         <div className="container">
-          <SectionHeader label="Our Impact" title="Making a Difference Since 2017" light />
+          <SectionHeader label="Our Impact" title="Making a Difference Since 2013" light />
           <div className="grid gap-8 md:grid-cols-4">
-            <StatCounter end={6} suffix="+" label="Homes" sublabel="Across the Inland Empire" isVisible={statsAnim.isVisible} />
-            <StatCounter end={52} suffix="+" label="Beds Available" sublabel="Fully furnished rooms" isVisible={statsAnim.isVisible} />
-            <StatCounter end={8} suffix="+" label="Years of Service" sublabel="Since 2017" isVisible={statsAnim.isVisible} />
+            <StatCounter end={8} suffix="+" label="Homes" sublabel="Across Riverside County" isVisible={statsAnim.isVisible} />
+            <StatCounter end={75} suffix="+" label="Beds Available" sublabel="Fully furnished rooms" isVisible={statsAnim.isVisible} />
+            <StatCounter end={10} suffix="+" label="Years of Service" sublabel="Since 2013" isVisible={statsAnim.isVisible} />
             <div className="text-center">
-              <div className="font-serif text-5xl md:text-6xl text-teal mb-2">24/7</div>
-              <p className="text-lg font-semibold text-mist">On-Site Support</p>
-              <p className="text-sm text-mist/60">Always here for you</p>
+              <div className="font-serif text-5xl md:text-6xl text-gold mb-2">24/7</div>
+              <p className="text-lg font-semibold text-cream">On-Site Support</p>
+              <p className="text-sm text-cream/60">Always here for you</p>
             </div>
           </div>
         </div>
@@ -612,9 +614,10 @@ export default function HomePage() {
           PARTNERSHIPS
          ════════════════════════════════════════════════════════════ */}
       <section id="partnerships" className="relative py-20 md:py-28 overflow-hidden">
+        {/* Background image with overlay */}
         <div className="absolute inset-0">
           <img src={PARTNER_IMG} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-slate/90" />
+          <div className="absolute inset-0 bg-navy/90" />
         </div>
 
         <div className="container relative">
@@ -623,17 +626,17 @@ export default function HomePage() {
           <div className="grid gap-8 md:grid-cols-3 mb-16">
             {[
               { icon: Building2, title: "State-Billable Services", desc: "All services are billable to state and county funding sources" },
-              { icon: Heart, title: "Proven Track Record", desc: "Over 8 years serving San Bernardino County residents" },
-              { icon: MapPin, title: "Regional Coverage", desc: "Services available throughout the Inland Empire" },
+              { icon: Heart, title: "Proven Track Record", desc: "Over 10 years serving Riverside County residents" },
+              { icon: MapPin, title: "Regional Coverage", desc: "Services available throughout Southern California" },
             ].map((item) => {
               const Icon = item.icon;
               return (
                 <div key={item.title} className="text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-teal/20">
-                    <Icon className="h-8 w-8 text-teal" />
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gold/20">
+                    <Icon className="h-8 w-8 text-gold" />
                   </div>
-                  <h3 className="font-serif text-lg text-mist mb-2">{item.title}</h3>
-                  <p className="text-sm text-mist/70">{item.desc}</p>
+                  <h3 className="font-serif text-lg text-cream mb-2">{item.title}</h3>
+                  <p className="text-sm text-cream/70">{item.desc}</p>
                 </div>
               );
             })}
@@ -643,18 +646,18 @@ export default function HomePage() {
             {partnershipServices.map((service, i) => (
               <div
                 key={service.title}
-                className={`rounded-xl border border-mist/10 bg-mist/5 backdrop-blur-sm p-8 hover:bg-mist/8 transition-all duration-500 ${
+                className={`rounded-xl border border-cream/10 bg-cream/5 backdrop-blur-sm p-8 hover:bg-cream/8 transition-all duration-500 ${
                   partnerAnim.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
-                <h3 className="font-serif text-xl text-mist mb-3">{service.title}</h3>
-                <p className="text-mist/70 mb-5">{service.description}</p>
+                <h3 className="font-serif text-xl text-cream mb-3">{service.title}</h3>
+                <p className="text-cream/70 mb-5">{service.description}</p>
                 <div className="grid gap-2.5 md:grid-cols-2">
                   {service.features.map((feature) => (
                     <div key={feature} className="flex items-start gap-2.5">
-                      <Check className="mt-0.5 h-4 w-4 text-teal flex-shrink-0" />
-                      <span className="text-sm text-mist/70">{feature}</span>
+                      <Check className="mt-0.5 h-4 w-4 text-gold flex-shrink-0" />
+                      <span className="text-sm text-cream/70">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -680,7 +683,7 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: `${sIdx * 100}ms` }}
               >
-                <h3 className="font-serif text-2xl text-slate mb-4">{section.category}</h3>
+                <h3 className="font-serif text-2xl text-navy mb-4">{section.category}</h3>
                 <Accordion type="single" collapsible className="space-y-3">
                   {section.questions.map((item, index) => (
                     <AccordionItem
@@ -688,7 +691,7 @@ export default function HomePage() {
                       value={`${section.category}-${index}`}
                       className="rounded-xl border border-border/50 bg-white px-6 shadow-sm"
                     >
-                      <AccordionTrigger className="text-left text-slate hover:no-underline hover:text-teal-dark py-4 font-medium">
+                      <AccordionTrigger className="text-left text-navy hover:no-underline hover:text-gold-dark py-4 font-medium">
                         {item.q}
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
@@ -706,7 +709,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════
           CONTACT
          ════════════════════════════════════════════════════════════ */}
-      <section id="contact" className="py-20 md:py-28 bg-mist-dark" ref={contactAnim.ref}>
+      <section id="contact" className="py-20 md:py-28 bg-cream-dark" ref={contactAnim.ref}>
         <div className="container">
           <SectionHeader label="Get In Touch" title="Contact Us" description="Reach out for referrals, partnerships, or general inquiries" />
 
@@ -717,22 +720,22 @@ export default function HomePage() {
           >
             {/* Contact Form */}
             <div>
-              <h3 className="font-serif text-2xl text-slate mb-6">Send Us a Message</h3>
+              <h3 className="font-serif text-2xl text-navy mb-6">Send Us a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <Label htmlFor="name" className="text-slate font-medium">Name *</Label>
-                  <Input id="name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-teal focus:ring-teal/30" />
+                  <Label htmlFor="name" className="text-navy font-medium">Name *</Label>
+                  <Input id="name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-gold focus:ring-gold/30" />
                 </div>
                 <div>
-                  <Label htmlFor="email" className="text-slate font-medium">Email *</Label>
-                  <Input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-teal focus:ring-teal/30" />
+                  <Label htmlFor="email" className="text-navy font-medium">Email *</Label>
+                  <Input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-gold focus:ring-gold/30" />
                 </div>
                 <div>
-                  <Label htmlFor="phone" className="text-slate font-medium">Phone</Label>
-                  <Input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-teal focus:ring-teal/30" />
+                  <Label htmlFor="phone" className="text-navy font-medium">Phone</Label>
+                  <Input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-gold focus:ring-gold/30" />
                 </div>
                 <div>
-                  <Label htmlFor="type" className="text-slate font-medium">Inquiry Type *</Label>
+                  <Label htmlFor="type" className="text-navy font-medium">Inquiry Type *</Label>
                   <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
                     <SelectTrigger className="mt-1.5 bg-white border-border/60">
                       <SelectValue />
@@ -745,59 +748,59 @@ export default function HomePage() {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="message" className="text-slate font-medium">Message *</Label>
-                  <Textarea id="message" required rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-teal focus:ring-teal/30" />
+                  <Label htmlFor="message" className="text-navy font-medium">Message *</Label>
+                  <Textarea id="message" required rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="mt-1.5 bg-white border-border/60 focus:border-gold focus:ring-gold/30" />
                 </div>
-                <Button type="submit" disabled={isSubmitting} className="w-full bg-teal hover:bg-teal-dark text-white font-semibold py-6 text-lg rounded-lg shadow-sm">
+                <Button type="submit" disabled={isSubmitting} className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold py-6 text-lg rounded-lg shadow-sm">
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center mt-3">
                   You can also reach us directly at{" "}
-                  <a href="mailto:info@harborhavenhousing.org" className="text-teal-dark hover:underline">info@harborhavenhousing.org</a>
+                  <a href="mailto:info@bethelresidency.com" className="text-gold-dark hover:underline">info@bethelresidency.com</a>
                 </p>
               </form>
             </div>
 
             {/* Contact Info */}
             <div>
-              <h3 className="font-serif text-2xl text-slate mb-6">Contact Information</h3>
+              <h3 className="font-serif text-2xl text-navy mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="rounded-xl border border-border/50 bg-white p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-teal/15">
-                      <User className="h-6 w-6 text-teal-dark" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/15">
+                      <User className="h-6 w-6 text-gold-dark" />
                     </div>
                     <div>
-                      <h4 className="font-serif text-lg text-slate">Maria Delgado</h4>
-                      <p className="text-sm text-muted-foreground">Director of Operations</p>
+                      <h4 className="font-serif text-lg text-navy">Kevin Anderson</h4>
+                      <p className="text-sm text-muted-foreground">Executive Director</p>
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <a href="tel:9095554200" className="flex items-start gap-3 text-muted-foreground hover:text-teal-dark transition-colors">
-                      <Phone className="h-5 w-5 text-teal-dark mt-0.5" />
-                      <span>(909) 555-4200</span>
+                    <a href="tel:9512163326" className="flex items-start gap-3 text-muted-foreground hover:text-gold-dark transition-colors">
+                      <Phone className="h-5 w-5 text-gold-dark mt-0.5" />
+                      <span>(951) 216-3326</span>
                     </a>
-                    <a href="mailto:info@harborhavenhousing.org" className="flex items-start gap-3 text-muted-foreground hover:text-teal-dark transition-colors">
-                      <Mail className="h-5 w-5 text-teal-dark mt-0.5" />
-                      <span>info@harborhavenhousing.org</span>
+                    <a href="mailto:info@bethelresidency.com" className="flex items-start gap-3 text-muted-foreground hover:text-gold-dark transition-colors">
+                      <Mail className="h-5 w-5 text-gold-dark mt-0.5" />
+                      <span>info@bethelresidency.com</span>
                     </a>
                     <div className="flex items-start gap-3 text-muted-foreground">
-                      <MapPin className="h-5 w-5 text-teal-dark mt-0.5" />
-                      <span>San Bernardino County, CA</span>
+                      <MapPin className="h-5 w-5 text-gold-dark mt-0.5" />
+                      <span>Riverside County, CA</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="overflow-hidden rounded-xl border border-border/50 shadow-sm">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.6312806!2d-117.6508268!3d34.1083449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c34c3fbb3e5d65%3A0xd0f7c8e5e5e5e5e5!2sSan%20Bernardino%20County%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212270.0283838272!2d-117.6508268!3d33.9533546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dcae6530746d45%3A0xaa1ef49923eb1ce1!2sRiverside%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890"
                     width="100%"
                     height="300"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="San Bernardino County Map"
+                    title="Riverside County Map"
                   />
                 </div>
               </div>
@@ -809,21 +812,21 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════
           FINAL CTA
          ════════════════════════════════════════════════════════════ */}
-      <section className="py-20 md:py-24 bg-teal relative overflow-hidden">
+      <section className="py-20 md:py-24 bg-gold relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3" />
         </div>
         <div className="container relative text-center">
-          <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">Ready to Get Started?</h2>
-          <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-4xl text-navy mb-4">Ready to Get Started?</h2>
+          <p className="text-lg text-navy/70 mb-8 max-w-xl mx-auto">
             Contact us today to learn more about our supportive housing programs
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" className="bg-slate hover:bg-slate-light text-mist px-8 py-6 text-lg rounded-lg shadow-lg">
-              <a href="tel:9095554200">Call (909) 555-4200</a>
+            <Button asChild size="lg" className="bg-navy hover:bg-navy-light text-cream px-8 py-6 text-lg rounded-lg shadow-lg">
+              <a href="tel:9512163326">Call (951) 216-3326</a>
             </Button>
-            <Button onClick={() => scrollToSection("contact")} variant="outline" size="lg" className="border-2 border-white/30 bg-transparent text-white hover:bg-white/10 px-8 py-6 text-lg rounded-lg">
+            <Button onClick={() => scrollToSection("contact")} variant="outline" size="lg" className="border-2 border-navy/30 bg-transparent text-navy hover:bg-navy/10 px-8 py-6 text-lg rounded-lg">
               Send a Message
             </Button>
           </div>

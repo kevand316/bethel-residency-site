@@ -1,8 +1,6 @@
 /*
  * Design: Warm Sanctuary — Organic Modernism
- * Contact page: Contact form + contact info + map
- * Posts to website_contacts table (separate from CRM contacts).
- * Includes SMS consent checkbox for Twilio A2P 10DLC compliance.
+ * Contact page: Contact form (frontend-only) + contact info + map
  */
 import PageHero from "@/components/PageHero";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -20,11 +18,6 @@ import {
 import { Phone, Mail, MapPin, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Link } from "wouter";
-
-const SUPABASE_URL = "https://dorqtterkztyqfnxwxoo.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvcnF0dGVya3p0eXFmbnh3eG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4Mzk0OTQsImV4cCI6MjA4ODQxNTQ5NH0.YrEkxK-FMDoMe5HQukheX3W4PG9tqS-zEliF1TSs1OQ";
 
 export default function Contact() {
   const formAnim = useScrollAnimation();
@@ -35,47 +28,20 @@ export default function Contact() {
     phone: "",
     type: "general",
     message: "",
-    sms_consent: false,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const payload: Record<string, unknown> = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone || null,
-      type: formData.type,
-      message: formData.message,
-      sms_consent: formData.sms_consent,
-    };
+    // Simulate form submission (static site — no backend)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    if (formData.sms_consent) {
-      payload.sms_consent_at = new Date().toISOString();
-    }
-
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/website_contacts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify(payload),
+    toast.success("Message sent!", {
+      description: "We'll get back to you as soon as possible.",
     });
 
-    if (!res.ok) {
-      toast.error("Something went wrong", {
-        description: "Please try emailing us directly at info@bethelresidency.com",
-      });
-    } else {
-      toast.success("Message sent!", {
-        description: "We'll get back to you as soon as possible.",
-      });
-      setFormData({ name: "", email: "", phone: "", type: "general", message: "", sms_consent: false });
-    }
-
+    setFormData({ name: "", email: "", phone: "", type: "general", message: "" });
     setIsSubmitting(false);
   };
 
@@ -158,31 +124,6 @@ export default function Contact() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="mt-1.5 bg-white border-border/60 focus:border-gold focus:ring-gold/30"
                   />
-                </div>
-
-                {/* SMS Consent */}
-                <div className="rounded-lg border border-border/60 bg-muted/30 p-4">
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      id="sms_consent"
-                      checked={formData.sms_consent}
-                      onChange={(e) => setFormData({ ...formData, sms_consent: e.target.checked })}
-                      className="mt-0.5 h-4 w-4 rounded border-border accent-gold cursor-pointer shrink-0"
-                    />
-                    <span className="text-sm text-foreground/70 leading-snug">
-                      I agree to receive SMS text messages from Bethel Residency regarding my inquiry.
-                      Message and data rates may apply. Reply <strong>STOP</strong> to opt out at any time.
-                      See our{" "}
-                      <Link href="/sms-terms" className="text-gold-dark hover:underline">
-                        SMS Terms
-                      </Link>{" "}
-                      and{" "}
-                      <Link href="/privacy-policy" className="text-gold-dark hover:underline">
-                        Privacy Policy
-                      </Link>.
-                    </span>
-                  </label>
                 </div>
 
                 <Button

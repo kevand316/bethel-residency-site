@@ -19,14 +19,14 @@ export default function SectionHeader({ label, title, description, light }: Sect
     >
       {label && (
         <span className={`inline-block text-sm font-semibold tracking-widest uppercase mb-3 ${
-          light ? "text-teal-light" : "text-teal-dark"
+          light ? "text-gold-light" : "text-gold-dark"
         }`}>
           {label}
         </span>
       )}
       <h2
         className={`font-serif text-3xl md:text-4xl lg:text-5xl mb-4 ${
-          light ? "text-mist" : "text-slate"
+          light ? "text-cream" : "text-navy"
         }`}
       >
         {title}
@@ -34,7 +34,7 @@ export default function SectionHeader({ label, title, description, light }: Sect
       {description && (
         <p
           className={`max-w-2xl mx-auto text-lg ${
-            light ? "text-mist/70" : "text-muted-foreground"
+            light ? "text-cream/70" : "text-muted-foreground"
           }`}
         >
           {description}
