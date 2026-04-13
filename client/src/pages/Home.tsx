@@ -2,6 +2,7 @@
  * Design: Warm Sanctuary — Organic Modernism
  * Single-page layout: All sections consolidated into one scrollable page.
  * Sections: Hero, About, Our Homes, Services, Partnerships, FAQ, Contact
+ * Last deployed: 2026-04-12
  */
 import { Button } from "@/components/ui/button";
 import {
