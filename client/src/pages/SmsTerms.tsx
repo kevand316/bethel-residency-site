@@ -19,13 +19,14 @@ export default function SmsTerms() {
 
             <p className="text-sm text-muted-foreground">
               <strong>Effective Date:</strong> March 1, 2025 &nbsp;|&nbsp;
-              <strong>Last Updated:</strong> March 1, 2025
+              <strong>Last Updated:</strong> October 5, 2026
             </p>
 
             <p>
               These SMS Terms of Service (&ldquo;Terms&rdquo;) govern text message communications sent by
-              Bethel Residency (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) to individuals who have provided
-              their mobile phone number and consented to receive SMS messages.
+              Bethel Residency, operated by Matthew 2540 LLC (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), to individuals who have
+              provided their mobile phone number and consented to receive SMS messages. They cover two programs: our
+              general SMS program (Section 1) and the HouseBoss staff text line (Section 1A).
             </p>
 
             {/* 1 */}
@@ -41,6 +42,37 @@ export default function SmsTerms() {
                 <li>Send appointment reminders or follow-up communications</li>
                 <li>Share general organizational news and updates relevant to your inquiry</li>
               </ul>
+            </div>
+
+            {/* 1A */}
+            <div>
+              <h2 className="font-serif text-2xl text-navy mb-3">1A. HouseBoss Staff Text Line (1-888-BOSS-502)</h2>
+              <p>
+                HouseBoss is our operations platform for housing providers. Its text line,{" "}
+                <strong>1-888-BOSS-502 ((888) 267-7502)</strong>, is used only between housing organizations and
+                their own staff (for example house managers and operations managers), for operational messages:
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-1">
+                <li>Confirmations of and follow-up questions about reports staff text in (daily reports, incidents, maintenance, move-ins/outs, inventory)</li>
+                <li>Notifications about reports at homes a staff member is responsible for</li>
+                <li>Daily-report reminders</li>
+                <li>Rent-payment confirmations and roster-change approvals</li>
+                <li>Announcements from the staff member&rsquo;s own organization, and replies to them</li>
+              </ul>
+              <p className="mt-3">
+                <strong>How staff opt in:</strong> either (1) their organization adds their mobile number and we send a
+                single invitation, &ldquo;[Name] at [Organization] added you to their HouseBoss team. Reply YES to join or
+                NO to decline. Reply BLOCK to stop invites.&rdquo; No further messages are sent unless the person replies
+                YES; or (2) the staff member texts <strong>JOIN [code] [their name]</strong> to 1-888-BOSS-502 and their
+                organization approves the request. An organization cannot opt someone in without that person&rsquo;s own YES or
+                JOIN text.
+              </p>
+              <p className="mt-3">
+                No marketing or promotional messages are sent on this line, and residents/clients are not texted. Message
+                frequency varies with activity (typically a few messages per day for active staff). Message and data rates
+                may apply. Reply <strong>STOP</strong> to stop all messages, <strong>HELP</strong> for help, or{" "}
+                <strong>LEAVE</strong> to leave an organization&rsquo;s team.
+              </p>
             </div>
 
             {/* 2 */}
@@ -176,7 +208,7 @@ export default function SmsTerms() {
                 If you have questions about these SMS Terms, please contact us:
               </p>
               <div className="mt-3 space-y-1">
-                <p><strong>Bethel Residency</strong></p>
+                <p><strong>Matthew 2540 LLC (Bethel Residency, HouseBoss)</strong></p>
                 <p>Riverside County, CA</p>
                 <p>
                   Email:{" "}

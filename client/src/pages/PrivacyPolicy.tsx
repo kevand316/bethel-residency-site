@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
 
             <p className="text-sm text-muted-foreground">
               <strong>Effective Date:</strong> March 1, 2025 &nbsp;|&nbsp;
-              <strong>Last Updated:</strong> March 1, 2025
+              <strong>Last Updated:</strong> October 5, 2026
             </p>
 
             <p>
@@ -87,8 +87,11 @@ export default function PrivacyPolicy() {
                 </a>.
               </p>
               <p className="mt-3">
-                We do not sell or share your phone number with third parties for their marketing purposes.
-                Your phone number is used solely to communicate with you on behalf of Bethel Residency.
+                <strong>No mobile information will be shared with third parties or affiliates for marketing or
+                promotional purposes. Text messaging originator opt-in data and consent will not be shared with any
+                third parties.</strong> Your phone number is used solely to communicate with you on behalf of Bethel
+                Residency, or, for the HouseBoss staff text line (1-888-BOSS-502), on behalf of the organization whose
+                team you joined.
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
                 For full SMS terms, see our{" "}
@@ -106,7 +109,7 @@ export default function PrivacyPolicy() {
                 your information only in the following circumstances:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-1">
-                <li><strong>Service providers</strong> — trusted vendors who help us operate our website and communications (e.g., Supabase for data storage, Twilio for SMS delivery). These parties are contractually obligated to protect your data.</li>
+                <li><strong>Service providers</strong> — trusted vendors who help us operate our website and communications (e.g., Supabase for data storage, Twilio for SMS delivery, and Anthropic for AI processing that reads and organizes texts sent to the HouseBoss staff line). These parties are contractually obligated to protect your data and may use it only to provide their service to us. This does not include sharing for marketing purposes.</li>
                 <li><strong>Legal requirements</strong> — if required by law, court order, or governmental authority</li>
                 <li><strong>Business transfers</strong> — in connection with a merger, acquisition, or sale of assets, with prior notice to you</li>
               </ul>
@@ -186,7 +189,7 @@ export default function PrivacyPolicy() {
               <h2 className="font-serif text-2xl text-navy mb-3">11. Contact Us</h2>
               <p>If you have questions about this Privacy Policy, please contact us:</p>
               <div className="mt-3 space-y-1">
-                <p><strong>Bethel Residency</strong></p>
+                <p><strong>Matthew 2540 LLC (Bethel Residency, HouseBoss)</strong></p>
                 <p>Riverside County, CA</p>
                 <p>
                   Email:{" "}
